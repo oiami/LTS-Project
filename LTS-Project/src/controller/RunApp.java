@@ -1,8 +1,11 @@
 package controller;
 
+import model.Alphabet;
 import model.Event;
 import model.State;
 import model.Transition;
+import model.LTS;
+
 
 /**
  * @author fadi
@@ -24,6 +27,8 @@ import model.Transition;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
+
 public class RunApp {
 
 	/**
@@ -32,14 +37,16 @@ public class RunApp {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
+		LTS lts1 = new LTS("Light");
+		
 		// The States that we have incl. the initial State.
 		State initialState = new State("off");
 		State low = new State("low");
 		State high = new State("high");
 		
 		// Events
-		Event press = new Event("press");
-		Event hold = new Event("hold");
+		Event press = new Event(Alphabet.symbol.press);
+		Event hold = new Event(Alphabet.symbol.hold);
 		
 		// Transitions
 		Transition t1 = new Transition(initialState, press, low);
@@ -47,10 +54,16 @@ public class RunApp {
 		Transition t3 = new Transition(low, press, initialState);
 		Transition t4 = new Transition(high, hold, initialState);
 
+		lts1.addTransition(t1);
+		lts1.addTransition(t2);
+		lts1.addTransition(t3);
+		lts1.addTransition(t4);
+		
 		System.out.println(t1);
 		System.out.println(t2);
 		System.out.println(t3);
 		System.out.println(t4);
+
 
 	}
 

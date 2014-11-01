@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Vector;
+
 /**
  * @author fadi
  *
@@ -23,9 +25,10 @@ package model;
 public class State {
 	
 	private String name;
+	private Vector<String> mergedNames;
 
 	public State(String name) {
-		setName(name);
+		this.name=name;
 	}
 	
 	/**
@@ -35,14 +38,23 @@ public class State {
 		return name;
 	}
 
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
+	public void mergeToState(String name)
+	{
+		mergedNames.add(name);
+		this.name += ", " + name;
 	}
 	
 	public String toString() {
 		return this.getName();
 	}
+
+	public Vector<String> getMergedNames() {
+		return mergedNames;
+	}
+	
+	public boolean isEqualTo(State s)
+	{
+		if(s.getMergedNames().contains(o))
+	}
+
 }
