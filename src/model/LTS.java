@@ -1,6 +1,9 @@
 package model;
 
+import java.io.File;
 import java.util.Vector;
+
+import view.GraphViz;
 
 public class LTS implements Cloneable {
 
@@ -73,5 +76,42 @@ public class LTS implements Cloneable {
 			System.out.println("("+t.getFirstState().getName()+"->"+t.getEvent().getSymbol().toString()+"->"+t.getSecondState().getName()+")");
 		}
 		
+	}
+	
+	public void generateGraph() {
+		GraphViz gv = new GraphViz();
+		gv.addln(gv.start_graph());
+		
+		for(Transition t : transitions)
+		{
+			gv.addln(""+t.getFirstState().getName()+"->"+t.getEvent().getSymbol().toString()+"->"+t.getSecondState().getName()+"");
+		}
+		
+//		gv.addln("A -> B;");
+//		gv.addln("A -> C;");
+		gv.addln(gv.end_graph());
+		System.out.println(gv.getDotSource());
+
+		gv.increaseDpi();   // 106 dpi
+
+		String type = "gif";
+		//      String type = "dot";
+		//      String type = "fig";    // open with xfig
+		//      String type = "pdf";
+		//      String type = "ps";
+		//      String type = "svg";    // open with inkscape
+		//      String type = "png";
+		//      String type = "plain";
+		
+		String repesentationType= "dot";
+		//		String repesentationType= "neato";
+		//		String repesentationType= "fdp";
+		//		String repesentationType= "sfdp";
+		// 		String repesentationType= "twopi";
+		// 		String repesentationType= "circo";
+		
+		File out = new File(gv.getImageDpi()+"."+ type);   // Mac, in Eclipse Project Folder.
+		//      File out = new File("c:/eclipse.ws/graphviz-java-api/out." + type);    // Windows
+		gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type, repesentationType), out );
 	}
 }
