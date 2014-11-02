@@ -3,7 +3,7 @@ package model;
 import java.io.File;
 import java.util.Vector;
 
-import view.GraphViz;
+import api.GraphViz;
 
 public class LTS implements Cloneable {
 
@@ -81,11 +81,9 @@ public class LTS implements Cloneable {
 		
 		for(Transition t : transitions)
 		{
-			gv.addln(""+t.getFirstState().getName()+"->"+t.getEvent().getSymbol().toString()+"->"+t.getSecondState().getName()+"");
+			gv.addln(""+t.getFirstState().getName()+"->"+t.getSecondState().getName()+" [label="+t.getEvent().getSymbol().toString()+"]");
 		}
 		
-//		gv.addln("A -> B;");
-//		gv.addln("A -> C;");
 		gv.addln(gv.end_graph());
 		System.out.println(gv.getDotSource());
 
@@ -107,7 +105,7 @@ public class LTS implements Cloneable {
 		// 		String repesentationType= "twopi";
 		// 		String repesentationType= "circo";
 		
-		File out = new File(gv.getImageDpi()+"."+ type);   // Mac, in Eclipse Project Folder.
+		File out = new File(this.getName() + "."+ type);   // Mac, in Eclipse Project Folder.
 		//      File out = new File("c:/eclipse.ws/graphviz-java-api/out." + type);    // Windows
 		gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type, repesentationType), out );
 	}
