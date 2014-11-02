@@ -29,6 +29,7 @@ public class State {
 
 	public State(String name) {
 		this.name=name;
+		mergedNames = new Vector<String>();
 	}
 	
 	/**
@@ -54,7 +55,20 @@ public class State {
 	
 	public boolean isEqualTo(State s)
 	{
-		if(s.getMergedNames().contains(o))
+		if(this.getMergedNames().size() == s.getMergedNames().size())
+		{
+			for(String name : this.getMergedNames())
+				if(!s.getMergedNames().contains(name))
+				{
+					return false;
+				}
+		}
+		else
+		{
+			return false;
+		}
+		return true;
+
 	}
 
 }

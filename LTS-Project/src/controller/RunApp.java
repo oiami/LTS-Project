@@ -2,6 +2,7 @@ package controller;
 
 import model.Alphabet;
 import model.Event;
+import model.LTSDiagramm;
 import model.State;
 import model.Transition;
 import model.LTS;
@@ -36,33 +37,75 @@ public class RunApp {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		
+		//*******LTS 1**************
 		LTS lts1 = new LTS("Light");
 		
 		// The States that we have incl. the initial State.
-		State initialState = new State("off");
-		State low = new State("low");
-		State high = new State("high");
+		State lts1_state_off = new State("off");
+		State lts1_state_low = new State("low");
+		State lts1_state_high = new State("high");
 		
 		// Events
-		Event press = new Event(Alphabet.symbol.press);
-		Event hold = new Event(Alphabet.symbol.hold);
+		Event lts1_press = new Event(Alphabet.symbol.press);
+		Event lts1_hold = new Event(Alphabet.symbol.hold);
 		
 		// Transitions
-		Transition t1 = new Transition(initialState, press, low);
-		Transition t2 = new Transition(low, hold, high);
-		Transition t3 = new Transition(low, press, initialState);
-		Transition t4 = new Transition(high, hold, initialState);
+		Transition lts1_t1 = new Transition(lts1_state_off, lts1_press, lts1_state_low);
+		Transition lts1_t2 = new Transition(lts1_state_low, lts1_hold, lts1_state_high);
+		Transition lts1_t3 = new Transition(lts1_state_low, lts1_press, lts1_state_off);
+		Transition lts1_t4 = new Transition(lts1_state_high, lts1_press, lts1_state_off);
 
-		lts1.addTransition(t1);
-		lts1.addTransition(t2);
-		lts1.addTransition(t3);
-		lts1.addTransition(t4);
+		lts1.addTransition(lts1_t1);
+		lts1.addTransition(lts1_t2);
+		lts1.addTransition(lts1_t3);
+		lts1.addTransition(lts1_t4);
 		
-		System.out.println(t1);
-		System.out.println(t2);
-		System.out.println(t3);
-		System.out.println(t4);
+		lts1.addInitialState(lts1_state_off);
+		
+		//*********LTS 2**************
+		
+		LTS lts2 = new LTS("Switch");
+		
+		//LTS 2 States
+		State lts2_state_rel = new State("rel");
+		State lts2_state_pr = new State("pr");
+		
+		// LTS 2 Events
+		Event lts2_press = new Event(Alphabet.symbol.press);
+		Event lts2_hold = new Event(Alphabet.symbol.hold);
+		Event lts2_release = new Event(Alphabet.symbol.release);
+		
+		// LTS 2 Transitions
+		Transition lts2_t1 = new Transition(lts2_state_rel, lts2_press, lts2_state_pr);
+		Transition lts2_t2 = new Transition(lts2_state_pr, lts2_hold, lts2_state_pr);
+		Transition lts2_t3 = new Transition(lts2_state_pr, lts2_release, lts2_state_rel);
+
+
+		lts2.addTransition(lts2_t1);
+		lts2.addTransition(lts2_t2);
+		lts2.addTransition(lts2_t3);
+		
+		lts2.addInitialState(lts2_state_rel);
+		
+		LTSDiagramm diagramm = new LTSDiagramm();
+		
+		//Merge the two LTS's
+		diagramm.addLTS(lts1);
+		diagramm.addLTS(lts2);
+		diagramm.ComputeParallelCompositionFromFirstTwoLts();
+		
+		System.out.println("*********LTS1********");
+		lts1.printTransitions();
+		System.out.println("*********************");
+		System.out.println("*********LTS2********");
+		lts2.printTransitions();
+		System.out.println("*********************");
+		System.out.println("*********MergedLTS********");
+		diagramm.getLTS().printTransitions();
+		System.out.println("**************************");
+		
+		
 
 
 	}

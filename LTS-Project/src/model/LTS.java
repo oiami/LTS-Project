@@ -7,15 +7,21 @@ public class LTS implements Cloneable {
 	private String name;
 	private Vector<Transition> transitions;
 	private Vector<State> states;
-	private State initialState;
+	private Vector<State> initialStates;
 	
 	public LTS()
 	{
-		
+		transitions = new Vector<Transition>();
+		states = new Vector<State>();
+		initialStates = new Vector<State>();
 	}
+	
 	public LTS(String name)
 	{
 		this.setName(name);
+		transitions = new Vector<Transition>();
+		states = new Vector<State>();
+		initialStates = new Vector<State>();
 	}
 	
 	public void addTransition(Transition t)
@@ -30,17 +36,6 @@ public class LTS implements Cloneable {
 				
 		transitions.add(t);
 	}
-//	public void printLTS()
-//	{
-//		for(Transition t1: transitions)
-//		{
-//			
-//			for(Transition t2: transitions)
-//			{
-//				
-//			}
-//		}
-//	}
 	
 	public Vector<Transition> getTransitions()
 	{
@@ -57,19 +52,26 @@ public class LTS implements Cloneable {
 		return null; 
 	  } 
 
-	public State getInitialState() {
-		return initialState;
-	}
-
-	public void setInitialState(State initialState) {
-		this.initialState = initialState;
-	}
-
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	public Vector<State> getInitialStates() {
+		return initialStates;
+	}
+	public void addInitialState(State initialState) {
+		this.initialStates.addElement(initialState);
+	}
+	
+	public void printTransitions()
+	{
+		for(Transition t : transitions)
+		{
+			System.out.println("("+t.getFirstState().getName()+"->"+t.getEvent().getSymbol().toString()+"->"+t.getSecondState().getName()+")");
+		}
+		
 	}
 }
