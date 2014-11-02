@@ -42,7 +42,7 @@ public class State {
 	public void mergeToState(String name)
 	{
 		mergedNames.add(name);
-		this.name += ", " + name;
+		this.name += "_" + name;
 	}
 	
 	public String toString() {
@@ -53,22 +53,5 @@ public class State {
 		return mergedNames;
 	}
 	
-	public boolean isEqualTo(State s)
-	{
-		if(this.getMergedNames().size() == s.getMergedNames().size())
-		{
-			for(String name : this.getMergedNames())
-				if(!s.getMergedNames().contains(name))
-				{
-					return false;
-				}
-		}
-		else
-		{
-			return false;
-		}
-		return true;
-
-	}
 
 }

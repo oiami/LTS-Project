@@ -2,7 +2,6 @@ package controller;
 
 import model.Alphabet;
 import model.Event;
-import model.LTSDiagramm;
 import model.State;
 import model.Transition;
 import model.LTS;
@@ -88,12 +87,11 @@ public class RunApp {
 		
 		lts2.addInitialState(lts2_state_rel);
 		
-		LTSDiagramm diagramm = new LTSDiagramm();
+		LTS_Merger merger = new LTS_Merger();
 		
-		//Merge the two LTS's
-		diagramm.addLTS(lts1);
-		diagramm.addLTS(lts2);
-		diagramm.ComputeParallelCompositionFromFirstTwoLts();
+		LTS mergedLTS = merger.ComputeParallelComposition(lts1,lts2);
+		//Merge two LTS
+		
 		
 		System.out.println("*********LTS1********");
 		lts1.printTransitions();
@@ -103,11 +101,11 @@ public class RunApp {
 		lts2.printTransitions();
 		System.out.println("*********************");
 		System.out.println("*********MergedLTS********");
-		diagramm.getLTS().printTransitions();
+		mergedLTS.printTransitions();
 		System.out.println("**************************");
 		
 		
-
+		merger.printToDotFile("LtsDiagram.dot",mergedLTS);
 
 	}
 

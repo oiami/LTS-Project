@@ -9,13 +9,11 @@ public class LTS implements Cloneable {
 
 	private String name;
 	private Vector<Transition> transitions;
-	private Vector<State> states;
 	private Vector<State> initialStates;
 	
 	public LTS()
 	{
 		transitions = new Vector<Transition>();
-		states = new Vector<State>();
 		initialStates = new Vector<State>();
 	}
 	
@@ -23,20 +21,19 @@ public class LTS implements Cloneable {
 	{
 		this.setName(name);
 		transitions = new Vector<Transition>();
-		states = new Vector<State>();
 		initialStates = new Vector<State>();
 	}
 	
 	public void addTransition(Transition t)
 	{
-		//Every state get extracted... 
-		//It's actually not really necessary at this point, 
-		//though its providing a better overview of the code
-		if(!states.contains(t.getFirstState()))
-				states.add(t.getFirstState());
-		if(!states.contains(t.getSecondState()))
-			states.add(t.getSecondState());
-				
+		//Preventing dublicates 
+		for(Transition myT:transitions)
+		{
+			if(myT.getFirstState().getName().equals(t.getFirstState().getName())
+					&& myT.getSecondState().getName().equals(t.getSecondState().getName())
+					&& myT.getEvent().getSymbol() == t.getEvent().getSymbol())
+				return;
+		}
 		transitions.add(t);
 	}
 	

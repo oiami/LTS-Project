@@ -1,0 +1,10 @@
+digraph G {
+off_rel [shape=box];
+off_rel -> low_pr[style=bold,label="press"];
+low_pr -> high_pr[style=bold,label="hold"];
+low_rel -> off_pr[style=bold,label="press"];
+high_rel -> off_pr[style=bold,label="press"];
+off_pr -> off_rel[style=bold,label="release"];
+low_pr -> low_rel[style=bold,label="release"];
+high_pr -> high_rel[style=bold,label="release"];
+}
