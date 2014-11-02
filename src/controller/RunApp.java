@@ -97,6 +97,7 @@ public class RunApp {
 		
 		System.out.println("*********LTS1********");
 		lts1.printTransitions();
+		lts1.generateGraph(); // Generates a GIF Graph File.
 		System.out.println("*********************");
 		System.out.println("*********LTS2********");
 		lts2.printTransitions();
