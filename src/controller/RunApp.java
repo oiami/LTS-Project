@@ -93,16 +93,19 @@ public class RunApp {
 		//Merge two LTS
 		
 		
-		System.out.println("*********LTS1********");
+		System.out.println("*********LTS1 - " + lts1.getName() + "********");
 		lts1.printTransitions();
+		System.out.println("");
 		lts1.generateGraph(); // Generates a GIF Graph File.
 		System.out.println("*********************");
-		System.out.println("*********LTS2********");
+		System.out.println("*********LTS2 - "+ lts2.getName() +"********");
 		lts2.printTransitions();
+		System.out.println("");
 		lts2.generateGraph(); // Generates a GIF Graph File.
 		System.out.println("*********************");
-		System.out.println("*********MergedLTS********");
+		System.out.println("*********MergedLTS - "+ mergedLTS.getName() +"********");
 		mergedLTS.printTransitions();
+		System.out.println("");
 		mergedLTS.generateGraph();
 		System.out.println("**************************");
 		
