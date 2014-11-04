@@ -79,7 +79,7 @@ public class LTS implements Cloneable {
 	public void generateGraph() {
 		GraphViz gv = new GraphViz();
 		gv.addln(gv.start_graph());
-		
+		gv.addln("" + transitions.elementAt(0).getFirstState().getName() + " [shape=box]");
 		for(Transition t : transitions)
 		{
 			gv.addln(""+t.getFirstState().getName()+"->"+t.getSecondState().getName()+" [label="+t.getEvent().getSymbol().toString()+"]");

@@ -62,6 +62,12 @@ public class RunApp {
 		
 		lts1.addInitialState(lts1_state_off);
 		
+		System.out.println("*********LTS1 - " + lts1.getName() + "********");
+		lts1.printTransitions();
+		System.out.println("");
+		lts1.generateGraph(); // Generates a GIF Graph File.
+		System.out.println("*********************");
+		
 		//*********LTS 2**************
 		
 		LTS lts2 = new LTS("Switch");
@@ -87,22 +93,22 @@ public class RunApp {
 		
 		lts2.addInitialState(lts2_state_rel);
 		
-		LTS_Merger merger = new LTS_Merger();
-		
-		LTS mergedLTS = merger.ComputeParallelComposition(lts1,lts2);
-		//Merge two LTS
-		
-		
-		System.out.println("*********LTS1 - " + lts1.getName() + "********");
-		lts1.printTransitions();
-		System.out.println("");
-		lts1.generateGraph(); // Generates a GIF Graph File.
-		System.out.println("*********************");
 		System.out.println("*********LTS2 - "+ lts2.getName() +"********");
 		lts2.printTransitions();
 		System.out.println("");
 		lts2.generateGraph(); // Generates a GIF Graph File.
 		System.out.println("*********************");
+		
+		
+		
+		
+		
+		
+		LTS_Merger merger = new LTS_Merger();
+		
+		LTS mergedLTS = merger.ComputeParallelComposition(lts1,lts2);
+		//Merge two LTS
+		
 		System.out.println("*********MergedLTS - "+ mergedLTS.getName() +"********");
 		mergedLTS.printTransitions();
 		System.out.println("");
@@ -110,7 +116,7 @@ public class RunApp {
 		System.out.println("**************************");
 		
 		
-		merger.printToDotFile("LtsDiagram.dot",mergedLTS);
+//		merger.printToDotFile("LtsDiagram.dot",mergedLTS);
 
 	}
 
