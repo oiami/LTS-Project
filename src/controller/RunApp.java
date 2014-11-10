@@ -1,10 +1,10 @@
 package controller;
 
-import model.Alphabet;
 import model.Event;
+import model.LTS;
+import model.Merger;
 import model.State;
 import model.Transition;
-import model.LTS;
 
 
 /**
@@ -46,8 +46,8 @@ public class RunApp {
 		State lts1_state_high = new State("high");
 		
 		// Events
-		Event lts1_press = new Event(Alphabet.symbol.press);
-		Event lts1_hold = new Event(Alphabet.symbol.hold);
+		Event lts1_press = new Event("press");
+		Event lts1_hold = new Event("hold");
 		
 		// Transitions
 		Transition lts1_t1 = new Transition(lts1_state_off, lts1_press, lts1_state_low);
@@ -77,9 +77,9 @@ public class RunApp {
 		State lts2_state_pr = new State("pr");
 		
 		// LTS 2 Events
-		Event lts2_press = new Event(Alphabet.symbol.press);
-		Event lts2_hold = new Event(Alphabet.symbol.hold);
-		Event lts2_release = new Event(Alphabet.symbol.release);
+		Event lts2_press = new Event("press");
+		Event lts2_hold = new Event("hold");
+		Event lts2_release = new Event("release");
 		
 		// LTS 2 Transitions
 		Transition lts2_t1 = new Transition(lts2_state_rel, lts2_press, lts2_state_pr);
@@ -104,7 +104,7 @@ public class RunApp {
 		
 		
 		
-		LTS_Merger merger = new LTS_Merger();
+		Merger merger = new Merger();
 		
 		LTS mergedLTS = merger.ComputeParallelComposition(lts1,lts2);
 		//Merge two LTS
@@ -117,7 +117,66 @@ public class RunApp {
 		
 		
 //		merger.printToDotFile("LtsDiagram.dot",mergedLTS);
+		
+		
+		LTS lts3 = new LTS("Converse");
+		
+		// The States that we have incl. the initial State.
+		State lts3_state_0 = new State("x");
+		State lts3_state_1 = new State("y");
+		State lts3_state_2 = new State("z");
+		
+		// Events
+		Event lts3_think = new Event("think");
+		Event lts3_talk = new Event("talk");
 
+		// Transitions
+		Transition lts3_t1 = new Transition(lts3_state_0, lts3_think, lts3_state_1);
+		Transition lts3_t2 = new Transition(lts3_state_1, lts3_talk, lts3_state_2);
+
+		lts3.addTransition(lts3_t1);
+		lts3.addTransition(lts3_t2);
+		
+		lts3.addInitialState(lts3_state_0);
+		
+		System.out.println("*********LTS3 - " + lts3.getName() + "********");
+		lts3.printTransitions();
+		System.out.println("");
+		lts3.generateGraph(); // Generates a GIF Graph File.
+		System.out.println("*********************");
+		
+		LTS lts4 = new LTS("Itch");
+		
+		// The States that we have incl. the initial State.
+		State lts4_state_a = new State("a");
+		State lts4_state_b = new State("b");
+		
+		// Events
+		Event lts4_scratch = new Event("scratch");
+
+		// Transitions
+		Transition lts4_t1 = new Transition(lts4_state_a, lts4_scratch, lts4_state_b);
+
+		lts4.addTransition(lts4_t1);
+		
+		lts4.addInitialState(lts4_state_a);
+		
+		System.out.println("*********LTS4 - " + lts4.getName() + "********");
+		lts4.printTransitions();
+		System.out.println("");
+		lts4.generateGraph(); // Generates a GIF Graph File.
+		System.out.println("*********************");
+		
+		Merger merger2 = new Merger();
+		
+		LTS mergedLTS2 = merger2.ComputeParallelComposition(lts3,lts4);
+		//Merge two LTS
+		
+		System.out.println("*********MergedLTS - "+ mergedLTS2.getName() +"********");
+		mergedLTS2.printTransitions();
+		System.out.println("");
+		mergedLTS2.generateGraph();
+		System.out.println("**************************");
 	}
 
 }

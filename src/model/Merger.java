@@ -1,17 +1,12 @@
-package controller;
+package model;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
-import model.Event;
-import model.LTS;
-import model.State;
-import model.Transition;
-
-public class LTS_Merger {
+public class Merger {
 	
-	public LTS_Merger() {
+	public Merger() {
 
 	}
 	
