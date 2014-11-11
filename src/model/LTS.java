@@ -1,6 +1,9 @@
 package model;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Vector;
 
 import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
@@ -67,6 +70,40 @@ public class LTS implements Cloneable {
 		this.initialStates.addElement(initialState);
 	}
 	
+	public void printToDotFile(String filename,LTS completeSystem) {
+		PrintWriter writer;
+		//int i = 0;
+		try {
+			writer = new PrintWriter(filename, "UTF-8");
+	    	writer.println("digraph G {");
+	    	for(Transition t : completeSystem.getTransitions())
+	    	{
+	    		if(completeSystem.getInitialStates().contains(t.getFirstState())) //InitalState!
+				{
+	    			writer.println(t.getFirstState().getName()+" [shape=box];");
+	    			
+	    			writer.println(t.getFirstState().getName()+" -> "+t.getSecondState().getName()+"[style=bold,label=\""+t.getEvent().getSymbol().toString()+"\"];");
+	    			
+				}
+	    		else
+	    		{
+	    			writer.println(t.getFirstState().getName()+" -> "+t.getSecondState().getName()+"[style=bold,label=\""+t.getEvent().getSymbol().toString()+"\"];");
+	    	    	
+	    		}
+    		}
+	    	
+	    	writer.println("}");
+	    	
+	    	writer.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void printTransitions()
 	{
 		for(Transition t : transitions)
@@ -79,7 +116,7 @@ public class LTS implements Cloneable {
 	public void generateGraph() {
 		GraphViz gv = new GraphViz();
 		gv.addln(gv.start_graph());
-		gv.addln("" + transitions.elementAt(0).getFirstState().getName() + " [shape=box]");
+//		gv.addln("" + transitions.elementAt(0).getFirstState().getName() + " [shape=box]");
 		for(Transition t : transitions)
 		{
 			gv.addln(""+t.getFirstState().getName()+"->"+t.getSecondState().getName()+" [label="+t.getEvent().getSymbol().toString()+"]");

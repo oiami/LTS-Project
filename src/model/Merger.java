@@ -129,38 +129,4 @@ public class Merger {
 			}
 		}
 	}
-
-	public void printToDotFile(String filename,LTS completeSystem) {
-		PrintWriter writer;
-		//int i = 0;
-		try {
-			writer = new PrintWriter(filename, "UTF-8");
-	    	writer.println("digraph G {");
-	    	for(Transition t : completeSystem.getTransitions())
-	    	{
-	    		if(completeSystem.getInitialStates().contains(t.getFirstState())) //InitalState!
-				{
-	    			writer.println(t.getFirstState().getName()+" [shape=box];");
-	    			
-	    			writer.println(t.getFirstState().getName()+" -> "+t.getSecondState().getName()+"[style=bold,label=\""+t.getEvent().getSymbol().toString()+"\"];");
-	    			
-				}
-	    		else
-	    		{
-	    			writer.println(t.getFirstState().getName()+" -> "+t.getSecondState().getName()+"[style=bold,label=\""+t.getEvent().getSymbol().toString()+"\"];");
-	    	    	
-	    		}
-    		}
-	    	
-	    	writer.println("}");
-	    	
-	    	writer.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 }
