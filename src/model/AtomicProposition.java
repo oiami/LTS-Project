@@ -1,9 +1,7 @@
 package model;
 
-import java.util.Vector;
-
 /**
- * @author fadi
+ * @author Fadi Asbih
  *
  * Copyright (c) 2014
  *
@@ -22,17 +20,19 @@ import java.util.Vector;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-public class State {
-	
-	private String name;
-	private Vector<String> mergedNames;
-	private Vector<AtomicProposition> atomicPropositions;
+public class AtomicProposition {
 
-	public State(String name) {
-		this.name=name;
-		mergedNames = new Vector<String>();
+	private String name;
+	private boolean value;
+	
+	public AtomicProposition() {
+		this(null);
 	}
 	
+	public AtomicProposition(String name) {
+		setName(name);
+	}
+
 	/**
 	 * @return the name
 	 */
@@ -40,21 +40,24 @@ public class State {
 		return name;
 	}
 
-	public void mergeToState(String name)
-	{
-		mergedNames.add(name);
-		this.name += "_" + name;
-	}
-	
-	public String toString() {
-		return this.getName();
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Vector<String> getMergedNames() {
-		return mergedNames;
-	}	
-	
-	public void addAtomicProposition(AtomicProposition ap) {
-		atomicPropositions.add(ap);
+	/**
+	 * @return the value
+	 */
+	public boolean isValue() {
+		return value;
+	}
+
+	/**
+	 * @param value the value to set
+	 */
+	public void setValue(boolean value) {
+		this.value = value;
 	}
 }

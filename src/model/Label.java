@@ -3,7 +3,7 @@ package model;
 import java.util.Vector;
 
 /**
- * @author fadi
+ * @author Fadi Asbih
  *
  * Copyright (c) 2014
  *
@@ -22,17 +22,21 @@ import java.util.Vector;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-public class State {
-	
-	private String name;
-	private Vector<String> mergedNames;
-	private Vector<AtomicProposition> atomicPropositions;
+public class Label {
 
-	public State(String name) {
-		this.name=name;
-		mergedNames = new Vector<String>();
+	private String name;
+	private State state;
+	private Vector<AtomicProposition> atomicPropositions;
+	
+	public Label () {
+		
 	}
 	
+	public Label(State state, AtomicProposition atomicProposition) {
+		setState(state);
+		setAtomicPropositions(atomicPropositions);
+	}
+
 	/**
 	 * @return the name
 	 */
@@ -40,21 +44,38 @@ public class State {
 		return name;
 	}
 
-	public void mergeToState(String name)
-	{
-		mergedNames.add(name);
-		this.name += "_" + name;
-	}
-	
-	public String toString() {
-		return this.getName();
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Vector<String> getMergedNames() {
-		return mergedNames;
-	}	
-	
-	public void addAtomicProposition(AtomicProposition ap) {
-		atomicPropositions.add(ap);
+	/**
+	 * @return the state
+	 */
+	public State getState() {
+		return state;
+	}
+
+	/**
+	 * @param state the state to set
+	 */
+	public void setState(State state) {
+		this.state = state;
+	}
+
+	/**
+	 * @return the atomicPropositions
+	 */
+	public Vector<AtomicProposition> getAtomicPropositions() {
+		return atomicPropositions;
+	}
+
+	/**
+	 * @param atomicPropositions the atomicPropositions to set
+	 */
+	public void setAtomicPropositions(Vector<AtomicProposition> atomicPropositions) {
+		this.atomicPropositions = atomicPropositions;
 	}
 }
