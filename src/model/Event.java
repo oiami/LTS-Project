@@ -22,17 +22,17 @@ package model;
  */
 public class Event {
 
-	private String alphabet;
+	private String name;
 	
-	public Event(String symbol) {
-		setAlphabet(symbol);
+	public Event(String name) {
+		setName(name);
 	}
 	
-	public String getSymbol() {
-		return alphabet;
+	public String getName() {
+		return name;
 	}
 
-	public void setAlphabet(String alphabet) {
-		this.alphabet = alphabet;
+	public void setName(String name) {
+		this.name = name;
 	}
 }

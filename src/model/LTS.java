@@ -35,7 +35,7 @@ public class LTS implements Cloneable {
 		{
 			if(myT.getFirstState().getName().equals(t.getFirstState().getName())
 					&& myT.getSecondState().getName().equals(t.getSecondState().getName())
-					&& myT.getEvent().getSymbol() == t.getEvent().getSymbol())
+					&& myT.getEvent().getName() == t.getEvent().getName())
 				return;
 		}
 		transitions.add(t);
@@ -82,12 +82,12 @@ public class LTS implements Cloneable {
 				{
 	    			writer.println(t.getFirstState().getName()+" [shape=box];");
 	    			
-	    			writer.println(t.getFirstState().getName()+" -> "+t.getSecondState().getName()+"[style=bold,label=\""+t.getEvent().getSymbol().toString()+"\"];");
+	    			writer.println(t.getFirstState().getName()+" -> "+t.getSecondState().getName()+"[style=bold,label=\""+t.getEvent().getName().toString()+"\"];");
 	    			
 				}
 	    		else
 	    		{
-	    			writer.println(t.getFirstState().getName()+" -> "+t.getSecondState().getName()+"[style=bold,label=\""+t.getEvent().getSymbol().toString()+"\"];");
+	    			writer.println(t.getFirstState().getName()+" -> "+t.getSecondState().getName()+"[style=bold,label=\""+t.getEvent().getName().toString()+"\"];");
 	    	    	
 	    		}
     		}
@@ -108,7 +108,7 @@ public class LTS implements Cloneable {
 	{
 		for(Transition t : transitions)
 		{
-			System.out.println("("+t.getFirstState().getName()+"->"+t.getEvent().getSymbol().toString()+"->"+t.getSecondState().getName()+")");
+			System.out.println("("+t.getFirstState().getName()+"->"+t.getEvent().getName().toString()+"->"+t.getSecondState().getName()+")");
 		}
 		
 	}
@@ -119,7 +119,7 @@ public class LTS implements Cloneable {
 //		gv.addln("" + transitions.elementAt(0).getFirstState().getName() + " [shape=box]");
 		for(Transition t : transitions)
 		{
-			gv.addln(""+t.getFirstState().getName()+"->"+t.getSecondState().getName()+" [label="+t.getEvent().getSymbol().toString()+"]");
+			gv.addln(""+t.getFirstState().getName()+"->"+t.getSecondState().getName()+" [label="+t.getEvent().getName().toString()+"]");
 		}
 		
 		gv.addln(gv.end_graph());

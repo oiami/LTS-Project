@@ -1,8 +1,5 @@
 package model;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 
 public class Merger {
 	
@@ -23,7 +20,7 @@ public class Merger {
 		{
 			for(Transition t2: ltsB.getTransitions())
 			{
-				if(t2.getEvent().getSymbol() == t1.getEvent().getSymbol())
+				if(t2.getEvent().getName() == t1.getEvent().getName())
 				{
 					
 					State mergedState1 = new State(t1.getFirstState().getName());
@@ -32,7 +29,7 @@ public class Merger {
 					State mergedState2 = new State(t1.getSecondState().getName());
 					mergedState2.mergeToState(t2.getSecondState().getName());
 					
-					Event mutualEvent = new Event(t1.getEvent().getSymbol());
+					Event mutualEvent = new Event(t1.getEvent().getName());
 					
 					if(ltsA.getInitialStates().contains(t1.getFirstState())
 							&& ltsB.getInitialStates().contains(t2.getFirstState()))
@@ -52,7 +49,7 @@ public class Merger {
 		{
 			for(Transition t2: ltsB.getTransitions())
 			{
-				if(t2.getEvent().getSymbol() == t1.getEvent().getSymbol())
+				if(t2.getEvent().getName() == t1.getEvent().getName())
 				{
 					eventMatch =true;				
 				}
@@ -68,7 +65,7 @@ public class Merger {
 		{
 			for(Transition t1: ltsA.getTransitions())
 			{
-				if(t2.getEvent().getSymbol() == t1.getEvent().getSymbol())
+				if(t2.getEvent().getName() == t1.getEvent().getName())
 				{
 					eventMatch =true;				
 				}
@@ -94,7 +91,7 @@ public class Merger {
 				State newState1 = new State(t.getFirstState().getName());
 				newState1.mergeToState(addTr.getFirstState().getName());
 				
-				Event addEvent = new Event(addTr.getEvent().getSymbol());
+				Event addEvent = new Event(addTr.getEvent().getName());
 				
 				State newState2 = new State(t.getFirstState().getName());
 				newState2.mergeToState(addTr.getSecondState().getName());
@@ -113,7 +110,7 @@ public class Merger {
 			{ // in case there is State with the same name
 				State newState1 = new State(t.getFirstState().getName());
 				
-				Event addEvent = new Event(addTr.getEvent().getSymbol());
+				Event addEvent = new Event(addTr.getEvent().getName());
 				
 				State newState2 = new State(t.getFirstState().getName());
 				newState2.mergeToState(addTr.getSecondState().getName());
