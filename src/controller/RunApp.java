@@ -3,6 +3,7 @@ package controller;
 import model.AtomicProposition;
 import model.Event;
 import model.LTS;
+import model.Label;
 import model.Merger;
 import model.State;
 import model.Transition;
@@ -54,24 +55,22 @@ public class RunApp {
 		AtomicProposition lightOn = new AtomicProposition("lightOn");
 		AtomicProposition highBattUse = new AtomicProposition("highBattUse");
 		
-		lightOn.setValue(false);
-		highBattUse.setValue(false);
+		// Function to Label each state with a set of atomic propositions that are true in this state.
+		lts1_state_off.addAtomicProposition(lightOn, false);
+		lts1_state_off.addAtomicProposition(highBattUse, false);
 		
-		lts1_state_off.addAtomicProposition(lightOn);
-		lts1_state_off.addAtomicProposition(highBattUse);
+		lts1_state_low.addAtomicProposition(lightOn, true);
+		lts1_state_low.addAtomicProposition(highBattUse, false);
+				
+		lts1_state_high.addAtomicProposition(lightOn, true);
+		lts1_state_high.addAtomicProposition(highBattUse, true);
 		
-		lightOn.setValue(true);
-		highBattUse.setValue(false);
+		lts1.addLabel(lts1_state_off, lts1_state_off.getAtomicPropositions());
+		lts1.addLabel(lts1_state_low, lts1_state_low.getAtomicPropositions());
+		lts1.addLabel(lts1_state_high, lts1_state_high.getAtomicPropositions());
 		
-		lts1_state_low.addAtomicProposition(lightOn);
-		lts1_state_low.addAtomicProposition(highBattUse);
-		
-		lightOn.setValue(true);
-		highBattUse.setValue(true);
-		
-		lts1_state_high.addAtomicProposition(lightOn);
-		lts1_state_high.addAtomicProposition(highBattUse);
-
+		System.out.println("print lables:");
+		lts1.printLabels();
 		
 		// Transitions
 		Transition lts1_t1 = new Transition(lts1_state_off, lts1_press, lts1_state_low);

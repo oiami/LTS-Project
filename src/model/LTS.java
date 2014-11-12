@@ -4,9 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Vector;
 
-import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 import api.GraphViz;
 
 public class LTS implements Cloneable {
@@ -14,11 +15,14 @@ public class LTS implements Cloneable {
 	private String name;
 	private Vector<Transition> transitions;
 	private Vector<State> initialStates;
+
+	private HashMap<State, Vector<AtomicProposition>> labels;
 	
 	public LTS()
 	{
 		transitions = new Vector<Transition>();
 		initialStates = new Vector<State>();
+		labels = new HashMap<State, Vector<AtomicProposition>>();
 	}
 	
 	public LTS(String name)
@@ -26,6 +30,35 @@ public class LTS implements Cloneable {
 		this.setName(name);
 		transitions = new Vector<Transition>();
 		initialStates = new Vector<State>();
+		labels = new HashMap<State, Vector<AtomicProposition>>();
+
+	}
+	
+	public void printLabels() {
+        System.out.print("{");
+
+	    for(Entry<State, Vector<AtomicProposition>> e : labels.entrySet()) {
+	        State key = e.getKey();
+	        Vector<AtomicProposition> value = e.getValue();
+	        
+	        System.out.print("("+key);
+	        
+	        for (AtomicProposition ap : value) {
+	        	if(ap == null) {
+	        		System.out.print(",{}");
+	        	}
+	        	else {
+		        	System.out.print(","+ap);
+	        	}
+	        }
+	        System.out.print(")");
+	    }
+        System.out.println("}");
+
+	}
+	
+	public void addLabel(State key, Vector<AtomicProposition> value) {
+		labels.put(key, value);
 	}
 	
 	public void addTransition(Transition t)

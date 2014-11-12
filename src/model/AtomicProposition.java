@@ -23,7 +23,6 @@ package model;
 public class AtomicProposition {
 
 	private String name;
-	private boolean value;
 	
 	public AtomicProposition() {
 		this(null);
@@ -46,18 +45,13 @@ public class AtomicProposition {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	/**
-	 * @return the value
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
 	 */
-	public boolean isValue() {
-		return value;
-	}
-
-	/**
-	 * @param value the value to set
-	 */
-	public void setValue(boolean value) {
-		this.value = value;
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getName();
 	}
 }

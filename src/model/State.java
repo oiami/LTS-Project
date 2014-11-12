@@ -31,6 +31,7 @@ public class State {
 	public State(String name) {
 		this.name=name;
 		mergedNames = new Vector<String>();
+		atomicPropositions = new Vector<AtomicProposition>();
 	}
 	
 	/**
@@ -54,7 +55,20 @@ public class State {
 		return mergedNames;
 	}	
 	
-	public void addAtomicProposition(AtomicProposition ap) {
-		atomicPropositions.add(ap);
+	public void addAtomicProposition(AtomicProposition atomicProposition, boolean active) {
+		if(active) { // Add only set of atomic propositions that are true in this state	
+			atomicPropositions.add(atomicProposition);
+		}
+		else {
+			atomicPropositions.add(null);
+		}
+	}
+	
+	public Vector<AtomicProposition> getAtomicPropositions() {
+		return atomicPropositions;
+	}
+	
+	public void setAtomicPropositions(Vector<AtomicProposition> atomicPropositions) {
+		this.atomicPropositions = atomicPropositions;
 	}
 }

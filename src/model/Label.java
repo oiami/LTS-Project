@@ -24,7 +24,6 @@ import java.util.Vector;
  */
 public class Label {
 
-	private String name;
 	private State state;
 	private Vector<AtomicProposition> atomicPropositions;
 	
@@ -32,23 +31,11 @@ public class Label {
 		
 	}
 	
-	public Label(State state, AtomicProposition atomicProposition) {
+	public Label(State state, Vector<AtomicProposition> atomicProposition) {
+		atomicPropositions = new Vector<AtomicProposition>();
+		
 		setState(state);
-		setAtomicPropositions(atomicPropositions);
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
+		setAtomicPropositions(atomicProposition);
 	}
 
 	/**
@@ -78,4 +65,5 @@ public class Label {
 	public void setAtomicPropositions(Vector<AtomicProposition> atomicPropositions) {
 		this.atomicPropositions = atomicPropositions;
 	}
+
 }
