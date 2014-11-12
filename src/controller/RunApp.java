@@ -3,7 +3,6 @@ package controller;
 import model.AtomicProposition;
 import model.Event;
 import model.LTS;
-import model.Label;
 import model.Merger;
 import model.State;
 import model.Transition;
