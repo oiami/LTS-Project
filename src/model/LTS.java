@@ -41,17 +41,16 @@ public class LTS implements Cloneable {
 	        State key = e.getKey();
 	        Vector<AtomicProposition> value = e.getValue();
 	        
-	        System.out.print("("+key);
-	        
+	        System.out.print("("+key+",{");
 	        for (AtomicProposition ap : value) {
 	        	if(ap == null) {
-	        		System.out.print(",{}");
+	        		break;
 	        	}
 	        	else {
-		        	System.out.print(","+ap);
+		        	System.out.print(ap+",");
 	        	}
 	        }
-	        System.out.print(")");
+	        System.out.print("}),");
 	    }
         System.out.println("}");
 

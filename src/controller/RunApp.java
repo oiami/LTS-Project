@@ -54,7 +54,7 @@ public class RunApp {
 		AtomicProposition lightOn = new AtomicProposition("lightOn");
 		AtomicProposition highBattUse = new AtomicProposition("highBattUse");
 		
-		// Function to Label each state with a set of atomic propositions that are true in this state.
+		// Label each state with a set of atomic propositions that are true in this state.
 		lts1_state_off.addAtomicProposition(lightOn, false);
 		lts1_state_off.addAtomicProposition(highBattUse, false);
 		
