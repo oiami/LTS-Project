@@ -65,9 +65,9 @@ public class LTS implements Cloneable {
 		//Preventing dublicates 
 		for(Transition myT:transitions)
 		{
-			if(myT.getFirstState().getName().equals(t.getFirstState().getName())
-					&& myT.getSecondState().getName().equals(t.getSecondState().getName())
-					&& myT.getEvent().getName() == t.getEvent().getName())
+			if(myT.getFirstState().equals(t.getFirstState())
+					&& myT.getSecondState().equals(t.getSecondState())
+					&& myT.getEvent() == t.getEvent())
 				return;
 		}
 		transitions.add(t);
@@ -112,14 +112,14 @@ public class LTS implements Cloneable {
 	    	{
 	    		if(completeSystem.getInitialStates().contains(t.getFirstState())) //InitalState!
 				{
-	    			writer.println(t.getFirstState().getName()+" [shape=box];");
+	    			writer.println(t.getFirstState()+" [shape=box];");
 	    			
-	    			writer.println(t.getFirstState().getName()+" -> "+t.getSecondState().getName()+"[style=bold,label=\""+t.getEvent().getName().toString()+"\"];");
+	    			writer.println(t.getFirstState()+" -> "+t.getSecondState()+"[style=bold,label=\""+t.getEvent().toString()+"\"];");
 	    			
 				}
 	    		else
 	    		{
-	    			writer.println(t.getFirstState().getName()+" -> "+t.getSecondState().getName()+"[style=bold,label=\""+t.getEvent().getName().toString()+"\"];");
+	    			writer.println(t.getFirstState()+" -> "+t.getSecondState()+"[style=bold,label=\""+t.getEvent().toString()+"\"];");
 	    	    	
 	    		}
     		}
@@ -140,7 +140,7 @@ public class LTS implements Cloneable {
 	{
 		for(Transition t : transitions)
 		{
-			System.out.println("("+t.getFirstState().getName()+"->"+t.getEvent().getName().toString()+"->"+t.getSecondState().getName()+")");
+			System.out.println("("+t.getFirstState()+"->"+t.getEvent().toString()+"->"+t.getSecondState()+")");
 		}
 		
 	}
@@ -148,10 +148,10 @@ public class LTS implements Cloneable {
 	public void generateGraph() {
 		GraphViz gv = new GraphViz();
 		gv.addln(gv.start_graph());
-//		gv.addln("" + transitions.elementAt(0).getFirstState().getName() + " [shape=box]");
+//		gv.addln("" + transitions.elementAt(0).getFirstState() + " [shape=box]");
 		for(Transition t : transitions)
 		{
-			gv.addln(""+t.getFirstState().getName()+"->"+t.getSecondState().getName()+" [label="+t.getEvent().getName().toString()+"]");
+			gv.addln(""+t.getFirstState()+"->"+t.getSecondState()+" [label="+t.getEvent().toString()+"]");
 		}
 		
 		gv.addln(gv.end_graph());
@@ -175,7 +175,7 @@ public class LTS implements Cloneable {
 		// 		String repesentationType= "twopi";
 		// 		String repesentationType= "circo";
 		
-		File out = new File(this.getName() + "."+ type);   // Mac, in Eclipse Project Folder.
+		File out = new File(this + "."+ type);   // Mac, in Eclipse Project Folder.
 		//      File out = new File("c:/eclipse.ws/graphviz-java-api/out." + type);    // Windows
 		gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type, repesentationType), out );
 	}

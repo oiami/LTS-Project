@@ -47,10 +47,6 @@ public class State {
 		this.name += "_" + name;
 	}
 	
-	public String toString() {
-		return this.getName();
-	}
-
 	public Vector<String> getMergedNames() {
 		return mergedNames;
 	}	
@@ -76,5 +72,14 @@ public class State {
 	
 	public void setAtomicPropositions(Vector<AtomicProposition> atomicPropositions) {
 		this.atomicPropositions = atomicPropositions;
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.getName();
 	}
 }
