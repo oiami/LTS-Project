@@ -13,46 +13,27 @@ import api.GraphViz;
 public class LTS implements Cloneable {
 
 	private String name;
-	private Vector<Transition> transitions;
+	
+	private Vector<State> states;
 	private Vector<State> initialStates;
-
+	private Vector<Transition> transitions;
 	private HashMap<State, Vector<AtomicProposition>> labels;
 	
 	public LTS()
 	{
-		transitions = new Vector<Transition>();
+		states = new Vector<State>();
 		initialStates = new Vector<State>();
+		transitions = new Vector<Transition>();
 		labels = new HashMap<State, Vector<AtomicProposition>>();
 	}
 	
 	public LTS(String name)
 	{
 		this.setName(name);
-		transitions = new Vector<Transition>();
+		states = new Vector<State>();
 		initialStates = new Vector<State>();
+		transitions = new Vector<Transition>();
 		labels = new HashMap<State, Vector<AtomicProposition>>();
-
-	}
-	
-	public void printLabels() {
-        System.out.print("{");
-
-	    for(Entry<State, Vector<AtomicProposition>> e : labels.entrySet()) {
-	        State key = e.getKey();
-	        Vector<AtomicProposition> value = e.getValue();
-	        
-	        System.out.print("("+key+",{");
-	        for (AtomicProposition ap : value) {
-	        	if(ap == null) {
-	        		break;
-	        	}
-	        	else {
-		        	System.out.print(ap+",");
-	        	}
-	        }
-	        System.out.print("}),");
-	    }
-        System.out.println("}");
 
 	}
 	
@@ -62,6 +43,10 @@ public class LTS implements Cloneable {
 	 */
 	public void addLabel(State key, Vector<AtomicProposition> value) {
 		labels.put(key, value);
+	}
+	
+	public void addState(State state) {
+		states.add(state);
 	}
 	
 	public void addTransition(Transition t)
@@ -106,6 +91,15 @@ public class LTS implements Cloneable {
 		this.initialStates.addElement(initialState);
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.getName();
+	}
+	
 	public void printToDotFile(String filename,LTS completeSystem) {
 		PrintWriter writer;
 		//int i = 0;
@@ -138,6 +132,28 @@ public class LTS implements Cloneable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void printLabels() {
+        System.out.print("{");
+
+	    for(Entry<State, Vector<AtomicProposition>> e : labels.entrySet()) {
+	        State key = e.getKey();
+	        Vector<AtomicProposition> value = e.getValue();
+	        
+	        System.out.print("("+key+",{");
+	        for (AtomicProposition ap : value) {
+	        	if(ap == null) {
+	        		break;
+	        	}
+	        	else {
+		        	System.out.print(ap+",");
+	        	}
+	        }
+	        System.out.print("}),");
+	    }
+        System.out.println("}");
+
 	}
 	
 	public void printTransitions()

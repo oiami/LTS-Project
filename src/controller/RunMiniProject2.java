@@ -1,10 +1,7 @@
 package controller;
 
-import java.util.Vector;
-
 import model.AtomicProposition;
-import model.Event;
-import model.KS;
+import model.LTS;
 import model.State;
 import model.Transition;
 
@@ -33,8 +30,8 @@ public class RunMiniProject2 {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// *******KS 1**************
-		KS light = new KS("Light");
+		// *******LTS - Kripke Structure**************
+		LTS light = new LTS("Light");
 
 		// The States that we have.
 		State stateOff = new State("off");
@@ -49,7 +46,7 @@ public class RunMiniProject2 {
 		// is a set of initial states
 		light.addInitialState(stateOff);
 		
-		// Transitions, is a transition relation that must be left-total
+		// Transitions, is a transition relation that must be left-total, Kripke Structure
 		Transition t1 = new Transition(stateOff, stateLow);
 		Transition t2 = new Transition(stateLow, stateHigh);
 		Transition t3 = new Transition(stateLow, stateOff);
@@ -78,8 +75,8 @@ public class RunMiniProject2 {
 		light.addLabel(stateLow, stateLow.getAtomicPropositions());
 		light.addLabel(stateHigh, stateHigh.getAtomicPropositions());
 
-		
-		
+		System.out.println("print lables:");
+		light.printLabels();
 	}
 
 }
