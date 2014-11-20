@@ -30,7 +30,7 @@ import model.Transition;
  */
 
 
-public class RunApp {
+public class RunMiniProject1 {
 
 	/**
 	 * @param args
@@ -49,27 +49,6 @@ public class RunApp {
 		// Events
 		Event lts1_press = new Event("press");
 		Event lts1_hold = new Event("hold");
-		
-		// AP
-		AtomicProposition lightOn = new AtomicProposition("lightOn");
-		AtomicProposition highBattUse = new AtomicProposition("highBattUse");
-		
-		// Label each state with a set of atomic propositions that are true in this state.
-		lts1_state_off.addAtomicProposition(lightOn, false);
-		lts1_state_off.addAtomicProposition(highBattUse, false);
-		
-		lts1_state_low.addAtomicProposition(lightOn, true);
-		lts1_state_low.addAtomicProposition(highBattUse, false);
-				
-		lts1_state_high.addAtomicProposition(lightOn, true);
-		lts1_state_high.addAtomicProposition(highBattUse, true);
-		
-		lts1.addLabel(lts1_state_off, lts1_state_off.getAtomicPropositions());
-		lts1.addLabel(lts1_state_low, lts1_state_low.getAtomicPropositions());
-		lts1.addLabel(lts1_state_high, lts1_state_high.getAtomicPropositions());
-		
-		System.out.println("print lables:");
-		lts1.printLabels();
 		
 		// Transitions
 		Transition lts1_t1 = new Transition(lts1_state_off, lts1_press, lts1_state_low);
@@ -120,11 +99,6 @@ public class RunApp {
 		System.out.println("");
 		lts2.generateGraph(); // Generates a GIF Graph File.
 		System.out.println("*********************");
-		
-		
-		
-		
-		
 		
 		Merger merger = new Merger();
 		
