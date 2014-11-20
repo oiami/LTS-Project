@@ -56,6 +56,10 @@ public class LTS implements Cloneable {
 
 	}
 	
+	/**
+	 * @param key
+	 * @param value
+	 */
 	public void addLabel(State key, Vector<AtomicProposition> value) {
 		labels.put(key, value);
 	}

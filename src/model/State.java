@@ -52,12 +52,12 @@ public class State {
 	}	
 	
 	/**
-	 * a Label function to add only a true set af atomic propositions in a State.
+	 * is a labeling function that labels each state with a set of Atomic Propositions that are true in this state.
 	 * 
 	 * @param atomicProposition
 	 * @param active
 	 */
-	public void addAtomicProposition(AtomicProposition atomicProposition, boolean active) {
+	public void labelingFunction(AtomicProposition atomicProposition, boolean active) {
 		if(active) { // Add only set of atomic propositions that are true in this state	
 			atomicPropositions.add(atomicProposition);
 		}

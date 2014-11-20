@@ -26,6 +26,17 @@ public class Transition {
 	private Event event;
 	private State secondState;
 	
+	/**
+	 * is a transition relation that must be left-total used in Kripke Structure
+	 * 
+	 * @param firstState
+	 * @param secondState
+	 */
+	public Transition(State firstState, State secondState) {
+		setFirstState(firstState);
+		setSecondState(secondState);
+	}
+	
 	public Transition(State firstState, Event event, State secondState) {
 		setFirstState(firstState);
 		setEvent(event);
