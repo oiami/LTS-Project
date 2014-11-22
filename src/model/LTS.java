@@ -1,9 +1,6 @@
 package model;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Vector;
@@ -13,16 +10,21 @@ import api.GraphViz;
 public class LTS implements Cloneable {
 
 	private String name;
-	private Vector<Transition> transitions;
+	
+	private Vector<State> states;
 	private Vector<State> initialStates;
+
 	private Vector<AtomicProposition> atomicPropositions;
+
+	private Vector<Transition> transitions;
 
 	private HashMap<State, Vector<AtomicProposition>> labels;
 	
 	public LTS()
 	{
-		transitions = new Vector<Transition>();
+		states = new Vector<State>();
 		initialStates = new Vector<State>();
+		transitions = new Vector<Transition>();
 		labels = new HashMap<State, Vector<AtomicProposition>>();
 		atomicPropositions = new Vector<AtomicProposition>();
 	}
@@ -30,8 +32,9 @@ public class LTS implements Cloneable {
 	public LTS(String name)
 	{
 		this.setName(name);
-		transitions = new Vector<Transition>();
+		states = new Vector<State>();
 		initialStates = new Vector<State>();
+		transitions = new Vector<Transition>();
 		labels = new HashMap<State, Vector<AtomicProposition>>();
 		atomicPropositions = new Vector<AtomicProposition>();
 	}
@@ -62,13 +65,21 @@ public class LTS implements Cloneable {
 	{
 		  for(Entry<State, Vector<AtomicProposition>> e : labels.entrySet()) 
 		  {
-		        if(key.getName() == e.getKey().getName())
+		        if(key.getName().equals(e.getKey().getName()))
 		        {
 		        	return;
 		        	
 		        }
 		  }
-		labels.put(key, value);
+	}
+
+	/**
+	 * @param key
+	 * @param value
+	 */
+	
+	public void addState(State state) {
+		states.add(state);
 	}
 	
 	public void addTransition(Transition t)
@@ -155,38 +166,13 @@ public class LTS implements Cloneable {
 		 return apstring;
 	}
 	
-	public void printToDotFile(String filename) {
-		PrintWriter writer;
-		//int i = 0;
-		try {
-			writer = new PrintWriter(filename, "UTF-8");
-	    	writer.println("digraph G {");
-	    	for(Transition t : transitions)
-	    	{
-	    		if(initialStates.contains(t.getFirstState())) //InitalState!
-				{
-	    			writer.println(t.getFirstState()+" [shape=box];");
-	    			
-	    			writer.println(t.getFirstState()+" -> "+t.getSecondState()+"[style=bold,label=\""+t.getEvent().toString()+"\"];");
-	    			
-				}
-	    		else
-	    		{
-	    			writer.println(t.getFirstState()+" -> "+t.getSecondState()+"[style=bold,label=\""+t.getEvent().toString()+"\"];");
-	    	    	
-	    		}
-    		}
-	    	
-	    	writer.println("}");
-	    	
-	    	writer.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.getName();
 	}
 	
 	public void printTransitions()

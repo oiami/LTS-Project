@@ -1,7 +1,5 @@
 package controller;
 
-import java.util.Vector;
-
 import model.AtomicProposition;
 import model.Event;
 import model.LTS;
@@ -31,7 +29,8 @@ import model.Transition;
  *
  */
 
-public class RunApp {
+
+public class RunMiniProject1 {
 
 	/**
 	 * @param args
@@ -50,34 +49,6 @@ public class RunApp {
 		// Events
 		Event lts1_press = new Event("press");
 		Event lts1_hold = new Event("hold");
-		
-		// AP
-		AtomicProposition lightOn = new AtomicProposition("lightOn");
-		AtomicProposition highBattUse = new AtomicProposition("highBattUse");
-		
-		lts1.addAtomicProposition(lightOn);
-		lts1.addAtomicProposition(highBattUse);
-		// Label each state with a set of atomic propositions that are true in this state.
-//		lts1_state_off.addAtomicProposition(lightOn, false);
-//		lts1_state_off.addAtomicProposition(highBattUse, false);
-//		
-//		lts1_state_low.addAtomicProposition(lightOn, true);
-//		lts1_state_low.addAtomicProposition(highBattUse, false);
-//				
-//		lts1_state_high.addAtomicProposition(lightOn, true);
-//		lts1_state_high.addAtomicProposition(highBattUse, true);
-		
-		Vector<AtomicProposition> lts1_state_low_APs = new Vector<AtomicProposition>();
-		lts1_state_low_APs.add(lightOn);		
-		lts1.addLabel(lts1_state_low,lts1_state_low_APs);
-		
-		Vector<AtomicProposition> lts1_state_high_APs = new Vector<AtomicProposition>();
-		lts1_state_high_APs.add(lightOn);
-		lts1_state_high_APs.add(highBattUse);
-		lts1.addLabel(lts1_state_high, lts1_state_high_APs);
-		
-		System.out.println("print lables:");
-		lts1.printLabels();
 		
 		// Transitions
 		Transition lts1_t1 = new Transition(lts1_state_off, lts1_press, lts1_state_low);
@@ -117,23 +88,6 @@ public class RunApp {
 		Transition lts2_t3 = new Transition(lts2_state_pr, lts2_release, lts2_state_rel);
 
 
-		AtomicProposition testAP1 = new AtomicProposition("Test1");
-		AtomicProposition testAP2 = new AtomicProposition("Test2");
-		
-		lts2.addAtomicProposition(testAP1);
-		lts2.addAtomicProposition(testAP2);
-		
-		//add labels to lts2
-		Vector<AtomicProposition> lts2_state_rel_APs = new Vector<AtomicProposition>();
-		lts2_state_rel_APs.add(testAP1);		
-		lts2.addLabel(lts2_state_rel,lts2_state_rel_APs);
-		
-		Vector<AtomicProposition> lts2_state_pr_APs = new Vector<AtomicProposition>();
-		lts2_state_pr_APs.add(testAP1);
-		lts2_state_pr_APs.add(testAP2);
-		lts2.addLabel(lts2_state_pr,lts2_state_pr_APs);
-
-		
 		lts2.addTransition(lts2_t1);
 		lts2.addTransition(lts2_t2);
 		lts2.addTransition(lts2_t3);
@@ -146,11 +100,6 @@ public class RunApp {
 		lts2.generateGraph(); // Generates a GIF Graph File.
 		System.out.println("*********************");
 		
-		
-		
-		
-		
-		
 		Merger merger = new Merger();
 		
 		LTS mergedLTS = merger.ComputeParallelComposition(lts1,lts2);
@@ -160,7 +109,6 @@ public class RunApp {
 		mergedLTS.printTransitions();
 		System.out.println("");
 		mergedLTS.generateGraph();
-		mergedLTS.printLabels();
 		System.out.println("**************************");
 		
 		

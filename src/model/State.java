@@ -51,6 +51,7 @@ public class State {
 		return mergedNames;
 	}	
 	
+
 //	/**
 //	 * a Label function to add only a true set af atomic propositions in a State.
 //	 * 
@@ -65,7 +66,7 @@ public class State {
 //			atomicPropositions.add(null);
 //		}
 //	}
-	
+
 //	public void addAtomicProposition(AtomicProposition atomicProposition) {
 //	
 //		atomicPropositions.add(atomicProposition);
