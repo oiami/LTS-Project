@@ -15,6 +15,7 @@ public class LTS implements Cloneable {
 	private String name;
 	private Vector<Transition> transitions;
 	private Vector<State> initialStates;
+	private Vector<AtomicProposition> atomicPropositions;
 
 	private HashMap<State, Vector<AtomicProposition>> labels;
 	
@@ -23,6 +24,7 @@ public class LTS implements Cloneable {
 		transitions = new Vector<Transition>();
 		initialStates = new Vector<State>();
 		labels = new HashMap<State, Vector<AtomicProposition>>();
+		atomicPropositions = new Vector<AtomicProposition>();
 	}
 	
 	public LTS(String name)
@@ -31,7 +33,7 @@ public class LTS implements Cloneable {
 		transitions = new Vector<Transition>();
 		initialStates = new Vector<State>();
 		labels = new HashMap<State, Vector<AtomicProposition>>();
-
+		atomicPropositions = new Vector<AtomicProposition>();
 	}
 	
 	public void printLabels() {
@@ -50,13 +52,22 @@ public class LTS implements Cloneable {
 		        	System.out.print(ap+",");
 	        	}
 	        }
-	        System.out.print("}),");
+	        System.out.print("}),\n");
 	    }
         System.out.println("}");
 
 	}
 	
-	public void addLabel(State key, Vector<AtomicProposition> value) {
+	public void addLabel(State key, Vector<AtomicProposition> value) 
+	{
+		  for(Entry<State, Vector<AtomicProposition>> e : labels.entrySet()) 
+		  {
+		        if(key.getName() == e.getKey().getName())
+		        {
+		        	return;
+		        	
+		        }
+		  }
 		labels.put(key, value);
 	}
 	
@@ -102,15 +113,57 @@ public class LTS implements Cloneable {
 		this.initialStates.addElement(initialState);
 	}
 	
-	public void printToDotFile(String filename,LTS completeSystem) {
+	public Vector<AtomicProposition> getAPforState(State s)
+	{
+		 for(Entry<State, Vector<AtomicProposition>> e : labels.entrySet()) {
+		        if(e.getKey() == s)
+		        {
+		        	return e.getValue();
+		        }
+		 }
+		 return new Vector<AtomicProposition>();
+	}
+	
+	public String getAPStringForState(State s)
+	{
+		String apstring = "";
+		 for(Entry<State, Vector<AtomicProposition>> e : labels.entrySet()) {
+		        if(e.getKey() == s)
+		        {
+		        	boolean hatAP = false;
+		        	
+		        	for(AtomicProposition ltsAp :atomicPropositions)
+		        	{
+		        		hatAP = false;
+		        		for(AtomicProposition ap :e.getValue())
+		        		{
+		        			if(ltsAp.getName() == ap.getName())
+		        			{
+		        				hatAP = true;
+		        				apstring += ap.getName()+",\n";
+		        			}
+		        		}
+		        		if(!hatAP)
+		        		{
+		        			apstring += "!"+ltsAp.getName()+",\n";
+		        		}
+
+		       		}
+		        	break;
+		        }
+		 }
+		 return apstring;
+	}
+	
+	public void printToDotFile(String filename) {
 		PrintWriter writer;
 		//int i = 0;
 		try {
 			writer = new PrintWriter(filename, "UTF-8");
 	    	writer.println("digraph G {");
-	    	for(Transition t : completeSystem.getTransitions())
+	    	for(Transition t : transitions)
 	    	{
-	    		if(completeSystem.getInitialStates().contains(t.getFirstState())) //InitalState!
+	    		if(initialStates.contains(t.getFirstState())) //InitalState!
 				{
 	    			writer.println(t.getFirstState()+" [shape=box];");
 	    			
@@ -144,14 +197,68 @@ public class LTS implements Cloneable {
 		}
 		
 	}
+	private Vector<State> getAllStates()
+	{
+		Vector<State> allStateVec = new Vector<State>();
+
+		for(Transition t : transitions)
+		{
+			boolean exist = false;
+
+			System.out.println(t.getFirstState().getName());
+			for(State s : allStateVec)
+			{
+				
+
+				if(t.getFirstState().getName().equals(s.getName()))
+				{
+					exist =true;
+					break;
+				}
+			}
+			if(!exist)
+			{
+				allStateVec.addElement(t.getFirstState());
+			}
+			
+			exist = false;
+			for(State s : allStateVec)
+			{
+				if(t.getSecondState().getName().equals(s.getName()))
+				{
+					exist =true;
+					break;
+				}
+			}
+			if(!exist)
+			{
+				allStateVec.addElement(t.getSecondState());
+			}
+			
+			}
+		return allStateVec;
+	}
 	
 	public void generateGraph() {
 		GraphViz gv = new GraphViz();
 		gv.addln(gv.start_graph());
 //		gv.addln("" + transitions.elementAt(0).getFirstState() + " [shape=box]");
+		
+		for(State s : getAllStates())
+		{
+			String labelname = s.getName() +"_label";
+			
+			gv.addln(labelname +"[color=white, shape=box, label=\""+this.getAPStringForState(s)+"\"];");
+			gv.addln(""+s+" -> "+labelname+" [arrowhead=none, style=dotted];");
+		}
 		for(Transition t : transitions)
 		{
-			gv.addln(""+t.getFirstState()+"->"+t.getSecondState()+" [label="+t.getEvent().toString()+"]");
+			if(initialStates.contains(t.getFirstState())) //InitalState!
+			{
+				gv.addln(t.getFirstState()+" [fillcolor=yellowgreen, shape=box];");
+    		}
+			
+			gv.addln(""+t.getFirstState()+"-> "+t.getSecondState()+" [label="+t.getEvent().getName()+"];");
 		}
 		
 		gv.addln(gv.end_graph());
@@ -175,8 +282,16 @@ public class LTS implements Cloneable {
 		// 		String repesentationType= "twopi";
 		// 		String repesentationType= "circo";
 		
-		File out = new File(this + "."+ type);   // Mac, in Eclipse Project Folder.
+		File out = new File(this.getName() + "."+ type);   // Mac, in Eclipse Project Folder.
 		//      File out = new File("c:/eclipse.ws/graphviz-java-api/out." + type);    // Windows
 		gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type, repesentationType), out );
+	}
+
+	public Vector<AtomicProposition> getAtomicPropositions() {
+		return atomicPropositions;
+	}
+
+	public void addAtomicProposition(AtomicProposition atomicProposition) {
+		this.atomicPropositions.add(atomicProposition);
 	}
 }
