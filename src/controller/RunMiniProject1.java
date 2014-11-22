@@ -1,6 +1,5 @@
 package controller;
 
-import model.AtomicProposition;
 import model.Event;
 import model.LTS;
 import model.Merger;

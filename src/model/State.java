@@ -26,12 +26,12 @@ public class State {
 	
 	private String name;
 	private Vector<String> mergedNames;
-	//private Vector<AtomicProposition> atomicPropositions;
+	private Vector<AtomicProposition> atomicPropositions;
 
 	public State(String name) {
 		this.name=name;
 		mergedNames = new Vector<String>();
-		//atomicPropositions = new Vector<AtomicProposition>();
+		atomicPropositions = new Vector<AtomicProposition>();
 	}
 	
 	/**
@@ -51,34 +51,29 @@ public class State {
 		return mergedNames;
 	}	
 	
+	/**
+	 * is a labeling function that labels each state with a set of Atomic Propositions that are true in this state.
+	 * 
+	 * @param atomicProposition
+	 * @param active
+	 */
+	public void labelingFunction(AtomicProposition atomicProposition, boolean active) {
+		if(active) { // Add only set of atomic propositions that are true in this state	
+			atomicPropositions.add(atomicProposition);
+		}
+		else {
+			atomicPropositions.add(null);
+		}
+	}
 
-//	/**
-//	 * a Label function to add only a true set af atomic propositions in a State.
-//	 * 
-//	 * @param atomicProposition
-//	 * @param active
-//	 */
-//	public void addAtomicProposition(AtomicProposition atomicProposition, boolean active) {
-//		if(active) { // Add only set of atomic propositions that are true in this state	
-//			atomicPropositions.add(atomicProposition);
-//		}
-//		else {
-//			atomicPropositions.add(null);
-//		}
-//	}
 
-//	public void addAtomicProposition(AtomicProposition atomicProposition) {
-//	
-//		atomicPropositions.add(atomicProposition);
-//	}
-//	
-//	public Vector<AtomicProposition> getAtomicPropositions() {
-//		return atomicPropositions;
-//	}
-//	
-//	public void setAtomicPropositions(Vector<AtomicProposition> atomicPropositions) {
-//		this.atomicPropositions = atomicPropositions;
-//	}
+	public Vector<AtomicProposition> getAtomicPropositions() {
+		return atomicPropositions;
+	}
+	
+	public void setAtomicPropositions(Vector<AtomicProposition> atomicPropositions) {
+		this.atomicPropositions = atomicPropositions;
+	}
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

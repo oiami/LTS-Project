@@ -13,11 +13,8 @@ public class LTS implements Cloneable {
 	
 	private Vector<State> states;
 	private Vector<State> initialStates;
-
 	private Vector<AtomicProposition> atomicPropositions;
-
 	private Vector<Transition> transitions;
-
 	private HashMap<State, Vector<AtomicProposition>> labels;
 	
 	public LTS()
@@ -71,13 +68,13 @@ public class LTS implements Cloneable {
 		        	
 		        }
 		  }
+		  labels.put(key, value);
 	}
 
 	/**
 	 * @param key
 	 * @param value
 	 */
-	
 	public void addState(State state) {
 		states.add(state);
 	}
@@ -87,9 +84,9 @@ public class LTS implements Cloneable {
 		//Preventing dublicates 
 		for(Transition myT:transitions)
 		{
-			if(myT.getFirstState().equals(t.getFirstState())
-					&& myT.getSecondState().equals(t.getSecondState())
-					&& myT.getEvent() == t.getEvent())
+			if(myT.getFirstState().getName().equals(t.getFirstState().getName())
+					&& myT.getSecondState().getName().equals(t.getSecondState().getName())
+					&& myT.getEvent().getName().equals(t.getEvent().getName()))
 				return;
 		}
 		transitions.add(t);
@@ -135,7 +132,7 @@ public class LTS implements Cloneable {
 		 return new Vector<AtomicProposition>();
 	}
 	
-	public String getAPStringForState(State s)
+	public String createApStringForState(State s)
 	{
 		String apstring = "";
 		 for(Entry<State, Vector<AtomicProposition>> e : labels.entrySet()) {
@@ -148,10 +145,13 @@ public class LTS implements Cloneable {
 		        		hatAP = false;
 		        		for(AtomicProposition ap :e.getValue())
 		        		{
-		        			if(ltsAp.getName() == ap.getName())
+		        			if(ap!=null)
 		        			{
-		        				hatAP = true;
-		        				apstring += ap.getName()+",\n";
+			        			if(ltsAp.getName().equals(ap.getName()))
+			        			{
+			        				hatAP = true;
+			        				apstring += ap.getName()+",\n";
+			        			}
 		        			}
 		        		}
 		        		if(!hatAP)
@@ -234,7 +234,7 @@ public class LTS implements Cloneable {
 		{
 			String labelname = s.getName() +"_label";
 			
-			gv.addln(labelname +"[color=white, shape=box, label=\""+this.getAPStringForState(s)+"\"];");
+			gv.addln(labelname +"[color=white, shape=box, label=\""+this.createApStringForState(s)+"\"];");
 			gv.addln(""+s+" -> "+labelname+" [arrowhead=none, style=dotted];");
 		}
 		for(Transition t : transitions)

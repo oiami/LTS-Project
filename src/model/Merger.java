@@ -36,7 +36,8 @@ public class Merger {
 		{
 			for(Transition t2: ltsB.getTransitions())
 			{
-				if(t2.getEvent().getName() == t1.getEvent().getName())
+				try{
+				if(t2.getEvent().getName().equals(t1.getEvent().getName()))
 				{
 					
 					State mergedState1 = new State(t1.getFirstState().getName());
@@ -51,11 +52,13 @@ public class Merger {
 					Vector<AtomicProposition> aps1 = new Vector<AtomicProposition>();
 					aps1.addAll(ltsA.getAPforState(t1.getFirstState()));
 					aps1.addAll(ltsB.getAPforState(t2.getFirstState()));
-					
+					mergedState1.setAtomicPropositions(aps1);
+				
 					//APs for mergedState2 in mergedLTS
 					Vector<AtomicProposition> aps2 = new Vector<AtomicProposition>();
 					aps2.addAll(ltsA.getAPforState(t1.getSecondState()));
 					aps2.addAll(ltsB.getAPforState(t2.getSecondState()));
+					mergedState1.setAtomicPropositions(aps2);
 					
 					if(ltsA.getInitialStates().contains(t1.getFirstState())
 							&& ltsB.getInitialStates().contains(t2.getFirstState()))
@@ -66,6 +69,10 @@ public class Merger {
 					completeSystem.addTransition(new Transition(mergedState1,mutualEvent,mergedState2));
 					completeSystem.addLabel(mergedState1, aps1);
 					completeSystem.addLabel(mergedState2, aps2);
+				}}
+				catch(Exception e)
+				{
+					
 				}
 			}
 		}
@@ -127,11 +134,13 @@ public class Merger {
 				Vector<AtomicProposition> aps1 = new Vector<AtomicProposition>();
 				aps1.addAll(toLts.getAPforState(t.getFirstState()));
 				aps1.addAll(fromLts.getAPforState(addTr.getFirstState()));
+				newState1.setAtomicPropositions(aps1);
 				
 				//APs for newState2 in merged LTS
 				Vector<AtomicProposition> aps2 = new Vector<AtomicProposition>();
 				aps2.addAll(toLts.getAPforState(t.getSecondState()));
 				aps2.addAll(fromLts.getAPforState(addTr.getSecondState()));
+				newState2.setAtomicPropositions(aps2);
 
 				Transition newTrans = new Transition(newState1, addEvent, newState2);
 				
@@ -161,12 +170,13 @@ public class Merger {
 				Vector<AtomicProposition> aps1 = new Vector<AtomicProposition>();
 				aps1.addAll(toLts.getAPforState(t.getFirstState()));
 				aps1.addAll(fromLts.getAPforState(addTr.getFirstState()));
+				newState1.setAtomicPropositions(aps1);
 				
 				//APs for newState2 in merged LTS
 				Vector<AtomicProposition> aps2 = new Vector<AtomicProposition>();
 				aps2.addAll(toLts.getAPforState(t.getSecondState()));
 				aps2.addAll(fromLts.getAPforState(addTr.getSecondState()));
-				
+				newState2.setAtomicPropositions(aps2);
 //				if(lts.getInitialStates().contains(t.getFirstState()))
 //				{
 //					completeSystem.addInitialState(newState1);

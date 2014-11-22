@@ -1,9 +1,9 @@
 package controller;
 
-import java.util.Vector;
-
 import model.AtomicProposition;
+import model.Event;
 import model.LTS;
+import model.Merger;
 import model.State;
 import model.Transition;
 
@@ -54,47 +54,105 @@ public class RunMiniProject2 {
 				
 		light.addAtomicProposition(lightOn);
 		light.addAtomicProposition(highBattUse);
+
+		// Label each state with a set of atomic propositions
+		stateOff.labelingFunction(lightOn, false);
+		stateOff.labelingFunction(highBattUse, false);
+
+		stateLow.labelingFunction(lightOn, true);
+		stateLow.labelingFunction(highBattUse, false);
+
+		stateHigh.labelingFunction(lightOn, true);
+		stateHigh.labelingFunction(highBattUse, true);
 		
-		Vector<AtomicProposition> light_state_low_APs = new Vector<AtomicProposition>();
-		light_state_low_APs.add(lightOn);		
-		light.addLabel(stateLow,light_state_low_APs);
+		light.addLabel(stateOff, stateOff.getAtomicPropositions());
+		light.addLabel(stateLow, stateLow.getAtomicPropositions());
+		light.addLabel(stateHigh, stateHigh.getAtomicPropositions());
 		
-		Vector<AtomicProposition> lts1_state_high_APs = new Vector<AtomicProposition>();
-		lts1_state_high_APs.add(lightOn);
-		lts1_state_high_APs.add(highBattUse);
-		light.addLabel(stateHigh, lts1_state_high_APs);
-		
+		// Events
+		Event lightPress = new Event("press");
+		Event lightHold = new Event("hold");
+
 		// Transitions, is a transition relation that must be left-total, Kripke Structure
-		Transition t1 = new Transition(stateOff, stateLow);
-		Transition t2 = new Transition(stateLow, stateHigh);
-		Transition t3 = new Transition(stateLow, stateOff);
-		Transition t4 = new Transition(stateHigh, stateOff);
+		Transition t1 = new Transition(stateOff, lightPress, stateLow);
+		Transition t2 = new Transition(stateLow, lightHold, stateHigh);
+		Transition t3 = new Transition(stateLow, lightPress, stateOff);
+		Transition t4 = new Transition(stateHigh, lightPress, stateOff);
 		
 		light.addTransition(t1);
 		light.addTransition(t2);
 		light.addTransition(t3);
 		light.addTransition(t4);
 		
-//		// AP, certain atomic propositions
-//		AtomicProposition lightOn = new AtomicProposition("lightOn");
-//		AtomicProposition highBattUse = new AtomicProposition("highBattUse");
-
-		// Label each state with a set of atomic propositions
-//		stateOff.labelingFunction(lightOn, false);
-//		stateOff.labelingFunction(highBattUse, false);
-
-//		stateLow.labelingFunction(lightOn, true);
-//		stateLow.labelingFunction(highBattUse, false);
-//
-//		stateHigh.labelingFunction(lightOn, true);
-//		stateHigh.labelingFunction(highBattUse, true);
-//		
-//		light.addLabel(stateOff, stateOff.getAtomicPropositions());
-//		light.addLabel(stateLow, stateLow.getAtomicPropositions());
-//		light.addLabel(stateHigh, stateHigh.getAtomicPropositions());
-
 		System.out.println("print lables:");
 		light.printLabels();
+		
+		
+		
+		//*********LTS Switch**************
+		
+		LTS switching = new LTS("Switch");
+		
+		//LTS 2 States
+		State switching_state_rel = new State("rel");
+		State switching_state_pr = new State("pr");
+		
+		// LTS Switch Events
+		Event switching_press = new Event("press");
+		Event switching_hold = new Event("hold");
+		Event switching_release = new Event("release");
+		
+		// LTS Switch Transitions
+		Transition switching_t1 = new Transition(switching_state_rel, switching_press, switching_state_pr);
+		Transition switching_t2 = new Transition(switching_state_pr, switching_hold, switching_state_pr);
+		Transition switching_t3 = new Transition(switching_state_pr, switching_release, switching_state_rel);
+
+
+		AtomicProposition testAP1 = new AtomicProposition("a");
+		AtomicProposition testAP2 = new AtomicProposition("b");
+		
+		switching.addAtomicProposition(testAP1);
+		switching.addAtomicProposition(testAP2);
+		
+		// Label each state with a set of atomic propositions
+		switching_state_rel.labelingFunction(testAP1, false);
+		switching_state_rel.labelingFunction(testAP2, true);
+
+		switching_state_pr.labelingFunction(testAP1, true);
+		switching_state_pr.labelingFunction(testAP2, false);
+		
+		switching.addAtomicProposition(testAP1);
+		switching.addAtomicProposition(testAP2);
+		
+		//add labels to switching
+
+		switching.addLabel(switching_state_rel, switching_state_rel.getAtomicPropositions());
+		switching.addLabel(switching_state_pr, switching_state_pr.getAtomicPropositions());
+		
+		switching.addTransition(switching_t1);
+		switching.addTransition(switching_t2);
+		switching.addTransition(switching_t3);
+		
+		switching.addInitialState(switching_state_rel);
+		
+		System.out.println("*********switching - "+ switching.getName() +"********");
+		switching.printTransitions();
+		System.out.println("");
+		switching.generateGraph(); // Generates a GIF Graph File.
+		System.out.println("*********************");
+		
+		
+		Merger merger = new Merger();
+		
+		LTS mergedLTS = merger.ComputeParallelComposition(light,switching);
+		//Merge two LTS
+		
+		System.out.println("*********MergedLTS - "+ mergedLTS.getName() +"********");
+		mergedLTS.printTransitions();
+		System.out.println("");
+		mergedLTS.generateGraph();
+		mergedLTS.printLabels();
+		System.out.println("**************************");
 	}
 
 }
