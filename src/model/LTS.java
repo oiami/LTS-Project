@@ -225,6 +225,19 @@ public class LTS implements Cloneable {
 		return allStateVec;
 	}
 	
+	/**
+	 * essentially, it is the LTS without the state labels(ignore the transition labels)
+	 * but keeping the state's AP labels, so we just set the Event labels to an empty String, L4 s11.
+	 * 
+	 * @return KS
+	 */
+	public LTS mapToKS() {
+		for(Transition transition : getTransitions()) {
+			transition.getEvent().setName("");
+		}
+		return this;
+	}
+	
 	public void generateGraph() {
 		GraphViz gv = new GraphViz();
 		gv.addln(gv.start_graph());
