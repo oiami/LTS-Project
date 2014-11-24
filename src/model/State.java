@@ -29,7 +29,7 @@ public class State {
 	private Vector<AtomicProposition> atomicPropositions;
 
 	public State(String name) {
-		this.name=name;
+		setName(name);
 		mergedNames = new Vector<String>();
 		atomicPropositions = new Vector<AtomicProposition>();
 	}
@@ -41,6 +41,10 @@ public class State {
 		return name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public void mergeToState(String name)
 	{
 		mergedNames.add(name);

@@ -1,6 +1,7 @@
 package controller;
 
 import model.AtomicProposition;
+import model.CTL;
 import model.Event;
 import model.LTS;
 import model.Merger;
@@ -88,6 +89,8 @@ public class RunMiniProject2 {
 		light.printLabels();
 		
 		
+		// CTL, specify CTL formulas over atomic propositions.
+		CTL example = new CTL("E", "F", "true", lightOn);
 		
 		//*********LTS Switch**************
 		
@@ -153,6 +156,8 @@ public class RunMiniProject2 {
 		mergedLTS.generateGraph();
 		mergedLTS.printLabels();
 		System.out.println("**************************");
+		
+
 	}
 
 }

@@ -22,4 +22,11 @@ package model;
  */
 public class AST {
 
+	
+	private String firstSymbol;
+	private String secondSymbol;
+	
+	public AST() {
+		
+	}
 }
