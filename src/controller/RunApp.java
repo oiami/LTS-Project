@@ -1,7 +1,6 @@
 package controller;
 
 import model.AtomicProposition;
-import model.CTL;
 import model.Event;
 import model.LTS;
 import model.Merger;
@@ -27,13 +26,13 @@ import model.Transition;
  *         along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  */
-public class RunMiniProject2 {
+public class RunApp {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// *******LTS - Kripke Structure**************
+		// *******LTS Light**************
 		LTS light = new LTS("Light");
 
 		// The States that we have.
@@ -74,7 +73,7 @@ public class RunMiniProject2 {
 		Event lightPress = new Event("press");
 		Event lightHold = new Event("hold");
 
-		// Transitions, is a transition relation that must be left-total, Kripke Structure
+		// Transitions
 		Transition t1 = new Transition(stateOff, lightPress, stateLow);
 		Transition t2 = new Transition(stateLow, lightHold, stateHigh);
 		Transition t3 = new Transition(stateLow, lightPress, stateOff);
@@ -85,12 +84,10 @@ public class RunMiniProject2 {
 		light.addTransition(t3);
 		light.addTransition(t4);
 		
-		System.out.println("print lables:");
-		light.printLabels();
+//		System.out.println("print lables:");
+//		light.printLabels();
 		
 		
-		// CTL, specify CTL formulas over atomic propositions.
-		CTL example = new CTL("E", "F", "true", lightOn);
 		
 		//*********LTS Switch**************
 		
@@ -157,7 +154,11 @@ public class RunMiniProject2 {
 		mergedLTS.printLabels();
 		System.out.println("**************************");
 		
+		
+		// *******CTL**************
+		
 
+		
 	}
 
 }

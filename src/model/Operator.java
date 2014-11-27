@@ -20,16 +20,23 @@ package model;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-public class AtomicProposition implements IForumla {
+public abstract class Operator implements IForumla {
 
 	private String name;
 	
-	public AtomicProposition() {
-		this(null);
+	private IForumla formula1;
+	private IForumla formula2;
+	
+	public Operator() {
+		
 	}
 	
-	public AtomicProposition(String name) {
-		setName(name);
+	public Operator(IForumla formula1) {
+		
+	}
+	
+	public Operator(IForumla forumla1, IForumla forumla2) {
+		
 	}
 
 	/**
@@ -45,13 +52,32 @@ public class AtomicProposition implements IForumla {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+
+	/**
+	 * @return the formula1
 	 */
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return getName();
+	public IForumla getFormula1() {
+		return formula1;
+	}
+
+	/**
+	 * @param formula1 the formula1 to set
+	 */
+	public void setFormula1(IForumla formula1) {
+		this.formula1 = formula1;
+	}
+
+	/**
+	 * @return the formula2
+	 */
+	public IForumla getFormula2() {
+		return formula2;
+	}
+
+	/**
+	 * @param formula2 the formula2 to set
+	 */
+	public void setFormula2(IForumla formula2) {
+		this.formula2 = formula2;
 	}
 }

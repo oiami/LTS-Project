@@ -20,38 +20,6 @@ package model;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-public class AtomicProposition implements IForumla {
+public class EX extends CTL implements IForumla {
 
-	private String name;
-	
-	public AtomicProposition() {
-		this(null);
-	}
-	
-	public AtomicProposition(String name) {
-		setName(name);
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return getName();
-	}
 }

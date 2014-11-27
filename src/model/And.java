@@ -20,13 +20,6 @@ package model;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-public class AST {
+public class And extends Operator {
 
-	
-	private String firstSymbol;
-	private String secondSymbol;
-	
-	public AST() {
-		
-	}
 }

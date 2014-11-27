@@ -20,38 +20,17 @@ package model;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-public class AtomicProposition implements IForumla {
+public class Or extends Operator {
 
-	private String name;
-	
-	public AtomicProposition() {
-		this(null);
-	}
-	
-	public AtomicProposition(String name) {
-		setName(name);
+	public Or() {
+		super();
 	}
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
+	public Or(IForumla formula1) {
+		super(formula1);
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return getName();
+	public Or(IForumla formula1, IForumla formula2) {
+		super(formula1,formula2);
 	}
 }
